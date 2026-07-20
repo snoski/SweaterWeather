@@ -1,0 +1,3 @@
+const getNewDir = () => Math.sign(0.5 - Math.random());
+
+export default getNewDir;

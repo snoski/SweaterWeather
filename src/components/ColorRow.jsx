@@ -1,20 +1,27 @@
-import { useState, useEffect } from 'react';
-import useNewColor from '../hooks/useNewColor.js';
+import getNewColor from '../hooks/getNewColor.js';
 
 function ColorRow(props) {
 
+  //generate color array
   const colorArr = [props.color];
-  for (let i = 1; i < (props.numCols + 1); i++) {
-    colorArr.push(useNewColor(colorArr[i-1],props.maxChg));
+  for (let i = 1; i < (props.numCols); i++) {
+    colorArr.push(getNewColor(colorArr[i-1],props.maxChg));
   }
+
+  //render the row
   return (
     <div style={{display: "flex", flexDirection: "row"}}>
-      {colorArr.map((renderColor) => (
-        <div style={{height: "20px", width: "10vw", backgroundColor:`rgb(
-          ${renderColor.r},
-          ${renderColor.g},
-          ${renderColor.b}
-        )`}}>
+      {colorArr.map((renderColor,index) => (
+        <div style={{
+          height: (1 / props.numRows) * 100 +"vh",
+          width: (1 / props.numCols) * 100 +"vw", 
+          backgroundColor:`rgb(
+            ${renderColor.r},
+            ${renderColor.g},
+            ${renderColor.b}
+          )`}}
+        key={index}
+        >
         </div>
       ))}
     </div>

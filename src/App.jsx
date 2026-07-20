@@ -5,40 +5,45 @@ import './App.css';
 import ColorRow from './components/ColorRow.jsx';
 
 //Custom Hooks
-import useNewColor from './hooks/useNewColor.js';
+import getNewColor from './hooks/getNewColor.js';
 
 function App() {
+
+  //establish state
   const [color, setColor] = useState({
     r:0,
     g:0,
-    b:0
+    b:15
   });
   const [maxChg, setMaxChg] = useState({
-    r:20,
-    g:20,
-    b:20
+    r:3,
+    g:3,
+    b:3
   });
-  const [rows, setRows] = useState(100);
-  const [numCols, setNumCols] = useState(10);
+  const [numRows, setNumRows] = useState(6);
+  const [numCols, setNumCols] = useState(5);
   
+  //generate row props
   const rowProps = [{color:color,maxChg:maxChg,numCols:numCols,row:0}];
-
-  for (let i = 1; i < (rows); i++) {
+  for (let i = 1; i < (numRows); i++) {
     rowProps.push({
-      color: useNewColor(rowProps[i-1].color,maxChg),
+      color: getNewColor(rowProps[i-1].color,maxChg),
       maxChg:maxChg,
       numCols:numCols,
       row:i});
   }
   
+  //render the app
   return (
     <>
-      {rowProps.map((props) => (
+      {rowProps.map((props,index) => (
         <ColorRow 
           color={props.color} 
           maxChg={props.maxChg} 
-          numCols={props.numCols}
+          numCols={numCols}
+          numRows={numRows}
           row={props.row}
+          key={index}
           />
       ))}
     </>
