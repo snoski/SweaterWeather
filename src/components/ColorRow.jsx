@@ -1,36 +1,27 @@
-import { useState, useEffect } from 'react'
+import getNewColor from '../hooks/getNewColor.js';
 
 function ColorRow(props) {
-  
 
-  const getDir = () => Math.sign(0.5 - Math.random());
-
-  // useEffect(() => {
-  //   console.log("ColorRow props: ",props);
-  // },[props]);
-
-
-  const getNewColor = (color,maxChg) => {
-    const newColor = {};   
-    newColor.r = Math.min(Math.max(color.r + (getDir() * maxChg.r * Math.random()),0),255); 
-    newColor.g = Math.min(Math.max(color.g + (getDir() * maxChg.g * Math.random()),0),255); 
-    newColor.b = Math.min(Math.max(color.b + (getDir() * maxChg.b * Math.random()),0),255);
-
-    return newColor;
-  }
-
+  //generate color array
   const colorArr = [props.color];
-  for (let i = 1; i < (props.numCols + 1); i++) {
+  for (let i = 1; i < (props.numCols); i++) {
     colorArr.push(getNewColor(colorArr[i-1],props.maxChg));
   }
+
+  //render the row
   return (
     <div style={{display: "flex", flexDirection: "row"}}>
-      {colorArr.map((renderColor) => (
-        <div style={{height: "20px", width: "10vw", backgroundColor:`rgb(
-          ${renderColor.r},
-          ${renderColor.g},
-          ${renderColor.b}
-        )`}}>
+      {colorArr.map((renderColor,index) => (
+        <div style={{
+          height: (1 / props.numRows) * 100 +"vh",
+          width: (1 / props.numCols) * 100 +"vw", 
+          backgroundColor:`rgb(
+            ${renderColor.r},
+            ${renderColor.g},
+            ${renderColor.b}
+          )`}}
+        key={index}
+        >
         </div>
       ))}
     </div>
