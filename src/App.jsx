@@ -12,16 +12,16 @@ function App() {
   //establish state
   const [color, setColor] = useState({
     r:80,
-    g:80,
-    b:128
+    g:120,
+    b:230
   });
   const [maxChg, setMaxChg] = useState({
     r:8,
     g:8,
     b:8
   });
-  const [numRows, setNumRows] = useState(768);
-  const [numCols, setNumCols] = useState(640);
+  const [numRows, setNumRows] = useState(384);
+  const [numCols, setNumCols] = useState(320);
   
   //generate row props
   const rowProps = [{color:color,maxChg:maxChg,numCols:numCols,row:0}];
