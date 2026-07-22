@@ -11,24 +11,35 @@ function App() {
 
   //establish state
   const [color, setColor] = useState({
-    r:80,
-    g:120,
-    b:230
+    r:0,
+    g:0,
+    b:80
   });
-  const [maxChg, setMaxChg] = useState({
-    r:8,
-    g:8,
-    b:8
+
+  //speed limit of vertical color change
+  const [maxChgY, setMaxChgY] = useState({
+    r:4,
+    g:4,
+    b:4
   });
-  const [numRows, setNumRows] = useState(384);
-  const [numCols, setNumCols] = useState(320);
+
+  //speed limit of horizontal color change
+  const [maxChgX, setMaxChgX] = useState({
+    r:4,
+    g:4,
+    b:4
+  });
+  
+  const [numRows, setNumRows] = useState(480);
+  const [numCols, setNumCols] = useState(400);
   
   //generate row props
-  const rowProps = [{color:color,maxChg:maxChg,numCols:numCols,row:0}];
+  const rowProps = [{color:color,maxChgX:maxChgX,maxChgY:maxChgY,numCols:numCols,row:0}];
   for (let i = 1; i < (numRows); i++) {
     rowProps.push({
-      color: getNewColor(rowProps[i-1].color,maxChg),
-      maxChg:maxChg,
+      color: getNewColor(rowProps[i-1].color,maxChgY),
+      maxChgX:maxChgX,
+      maxChgY:maxChgY,
       numCols:numCols,
       row:i});
   }
@@ -39,7 +50,7 @@ function App() {
       {rowProps.map((props,index) => (
         <ColorRow 
           color={props.color} 
-          maxChg={props.maxChg} 
+          maxChg={props.maxChgX}
           numCols={numCols}
           numRows={numRows}
           row={props.row}
